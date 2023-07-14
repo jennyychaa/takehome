@@ -1,0 +1,7 @@
+{
+  "name": "@photon-health/models",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "author": "",
+  "license": "ISC"
+}

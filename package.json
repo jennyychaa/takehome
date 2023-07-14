@@ -1,0 +1,17 @@
+{
+  "name": "photon-health",
+  "version": "1.0.0",
+  "author": "Jenny Cha",
+  "license": "ISC",
+  "description": "Take Home Assignment for Photon Health",
+  "workspaces": {
+    "packages": [
+      "backend",
+      "frontend",
+      "models"
+    ]
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
