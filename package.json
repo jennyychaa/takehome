@@ -6,12 +6,13 @@
   "description": "Take Home Assignment for Photon Health",
   "workspaces": {
     "packages": [
+      "models",
       "backend",
-      "frontend",
-      "models"
+      "frontend"
     ]
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npm run start -w frontend",
+    "start:backend": "npm run start -w backend"
   }
 }

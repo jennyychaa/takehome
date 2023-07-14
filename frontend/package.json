@@ -1,7 +1,7 @@
 {
   "name": "@photo-health/frontend",
   "version": "0.1.0",
-  "private": true,
+  "main": "src/index.tsx",
   "dependencies": {
     "@types/node": "^16.18.38",
     "@types/react": "^18.2.15",
