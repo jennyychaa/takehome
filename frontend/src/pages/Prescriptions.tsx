@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { PrescriptionData } from '@photon-health/models';
 
-import Layout from '../templates/Layout';
+import WideLayout from '../templates/WideLayout';
 import Loader from '../components/Loader';
 
 const SORT_ORDER = {
@@ -71,7 +71,7 @@ const Prescriptions = () => {
   }, []);
 
   return (
-    <Layout>
+    <WideLayout>
       <Link className="block text-sm mb-16 text-gray-500" to="/">Home</Link>
       <h1 className="text-5xl mb-16">Prescriptions</h1>
       {isLoading || isSaving || prescriptions === undefined ? <Loader /> :
@@ -109,7 +109,7 @@ const Prescriptions = () => {
           </table>
         ) : <div>No prescription data is availabile.</div>
       }
-    </Layout>
+    </WideLayout>
   );
 };
 

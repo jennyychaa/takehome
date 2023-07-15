@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { PatientData } from '@photon-health/models';
 
-import Layout from '../templates/Layout';
+import WideLayout from '../templates/WideLayout';
 import Loader from '../components/Loader';
 
 const Patients = () => {
@@ -40,7 +40,7 @@ const Patients = () => {
   }, []);
 
   return (
-    <Layout>
+    <WideLayout>
       <Link className="block text-sm mb-16 text-gray-500" to="/">Home</Link>
       <div className="flex justify-between items-center gap-8 mb-16">
         <h1 className="text-5xl">Patient Data</h1>
@@ -73,7 +73,7 @@ const Patients = () => {
           </table>
         ) : <div>No patient data is availabile.</div>
       }
-    </Layout>
+    </WideLayout>
   );
 };
 
