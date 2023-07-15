@@ -1,12 +1,13 @@
 import express, { Request, Response } from "express";
+import cors from 'cors'
 import { v4 as uuidv4 } from "uuid";
+import { Patient, Prescription, PrescriptionData, PrescriptionStatus } from '@photon-health/models';
 
-import { Patient, Prescription, PrescriptionStatus } from '@photon-health/models';
-
-const app = express();
-app.use(express.json());
 const port = 3000;
+const app = express();
 
+app.use(express.json());
+app.use(cors());
 interface Database {
   patients: Record<string, Patient>;
   prescriptions: Record<string, Prescription>;
@@ -110,7 +111,21 @@ app.post("/patients", (req: Request, res: Response) => {
 });
 
 app.get("/prescriptions", (_, res: Response) => {
-  res.json(Object.values(database.prescriptions));
+  const prescriptions = Object.values(database.prescriptions);
+  const results: Array<PrescriptionData> = [];
+
+  for (let i = 0; i < prescriptions.length; i++) {
+    const patient = database.patients[prescriptions[i].patientId];
+    results.push({
+      ...prescriptions[i],
+      patientInfo: {
+        firstName: patient.firstName,
+        lastName: patient.lastName,
+      }
+    });
+  }
+
+  res.json(results);
 });
 
 app.patch("/prescriptions/status/:id", (req: Request, res: Response) => {
