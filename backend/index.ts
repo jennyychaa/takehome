@@ -86,9 +86,9 @@ app.get("/patients/:id", (req: Request, res: Response) => {
 });
 
 app.post("/patients", (req: Request, res: Response) => {
-  const { firstName, lastName, medications, notes } = req.body || {};
+  const { firstName, lastName, prescriptions, notes } = req.body || {};
 
-  if (!firstName || !lastName || !medications) {
+  if (!firstName || !lastName || !prescriptions) {
     res.status(400).send("Error: Missing required fields");
   } else {
     const patientId = uuidv4();
@@ -103,7 +103,7 @@ app.post("/patients", (req: Request, res: Response) => {
       id: prescriptionId,
       patientId,
       status: PrescriptionStatus.Pending,
-      medications,
+      medications: prescriptions,
       notes: notes || '',
     };
 
