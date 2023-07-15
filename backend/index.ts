@@ -49,14 +49,14 @@ const database: Database = {
       notes: 'Must take 3 times a day for 7 days.',
     },
     '3': {
-      id: '0',
+      id: '3',
       patientId: '1',
       status: PrescriptionStatus.Pending,
       medications: 'Drug E, 200mg',
       notes: '',
     },
     '4': {
-      id: '0',
+      id: '4',
       patientId: '1',
       status: PrescriptionStatus.Pending,
       medications: 'Drug D, 300mg',
@@ -111,6 +111,35 @@ app.post("/patients", (req: Request, res: Response) => {
 });
 
 app.get("/prescriptions", (_, res: Response) => {
+  res.json(queryPrescriptionsData());
+});
+
+app.patch("/prescriptions/status/:id", (req: Request, res: Response) => {
+  const id = req.params.id;
+  const { status } = req.body || {};
+
+  if (database.prescriptions[id]) {
+   if (Object.values(PrescriptionStatus).includes(status)) {
+      database.prescriptions[id] = {
+        ...database.prescriptions[id],
+        status,
+      }
+
+      res.json(queryPrescriptionsData());
+   } else {
+    res.status(400).send("Error: Invalid status type");
+   }
+  } else {
+    res.sendStatus(404);
+  }
+});
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
+});
+
+
+function queryPrescriptionsData() {
   const prescriptions = Object.values(database.prescriptions);
   const results: Array<PrescriptionData> = [];
 
@@ -125,28 +154,5 @@ app.get("/prescriptions", (_, res: Response) => {
     });
   }
 
-  res.json(results);
-});
-
-app.patch("/prescriptions/status/:id", (req: Request, res: Response) => {
-  const id = req.params.id;
-  const { status } = req.body || {};
-
-  if (database.prescriptions[id]) {
-   if (Object.values(PrescriptionStatus).includes(status)) {
-      database.prescriptions[id] = {
-        ...database.prescriptions[id],
-        status,
-      }
-      res.json(database.prescriptions[id]);
-   } else {
-    res.status(400).send("Error: Invalid status type");
-   }
-  } else {
-    res.sendStatus(404);
-  }
-});
-
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+  return results;
+};

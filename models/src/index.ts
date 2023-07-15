@@ -17,3 +17,7 @@ export interface Prescription {
   medications: string;
   notes?: string;
 }
+
+export interface PrescriptionData extends Prescription {
+  patientInfo: Omit<Patient, 'id'>;
+}
