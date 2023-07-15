@@ -1,18 +1,19 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
+import Error from './pages/Error';
 import Home from './pages/Home';
-import Pharmacist from './pages/Pharmacist';
-import Provider from './pages/Provider';
+import Prescriptions from './pages/Prescriptions';
+import Patients from './pages/Patients';
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/pharmacist" element={<Pharmacist />} />
-      <Route path="/provider" element={<Provider />} />
-      {/* @TODO Error Page */}
-      <Route path="*" element={<>Error</>} />
+      <Route path="/patients" element={<Patients />} />
+      <Route path="/patients/add" element={<Patients />} />
+      <Route path="/prescriptions" element={<Prescriptions />} />
+      <Route path="*" element={<Error />} />
     </Routes>
   );
 }

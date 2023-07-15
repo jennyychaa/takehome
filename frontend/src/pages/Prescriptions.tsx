@@ -11,7 +11,7 @@ const SORT_ORDER = {
   'FILLED': 2,
 };
 
-const Pharmacist = () => {
+const Prescriptions = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isSaving, setIsSaving] = useState<boolean>(false);
   const [prescriptions, setPrescriptions] = useState<Array<PrescriptionData> | undefined>(undefined);
@@ -113,4 +113,4 @@ const Pharmacist = () => {
   );
 };
 
-export default Pharmacist;
+export default Prescriptions;

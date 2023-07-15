@@ -8,13 +8,13 @@ const Home = () => {
       <div className="flex flex-col gap-8">
         <Link
           className="rounded-md bg-rose-200 hover:bg-rose-300 px-8 py-8 text-2xl"
-          to="/pharmacist"
+          to="/prescriptions"
         >
           I am a <strong>Pharmacist</strong> 💊
         </Link>
         <Link
           className="rounded-md bg-sky-200 hover:bg-sky-300 px-8 py-8 text-2xl"
-          to="/provider"
+          to="/patients"
         >
           I am a <strong>Provider</strong> 🩺
         </Link>
