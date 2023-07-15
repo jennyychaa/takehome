@@ -1,13 +1,17 @@
-export enum PrescriptionStatus {
-  Pending = 'PENDING',
-  InProgress = 'IN_PROGRESS',
-  Filled = 'FILLED'
-}
-
 export interface Patient {
   id: string;
   firstName: string;
   lastName: string;
+}
+
+export interface PatientData extends Patient {
+  prescriptions: Array<string>;
+}
+
+export enum PrescriptionStatus {
+  Pending = 'PENDING',
+  InProgress = 'IN_PROGRESS',
+  Filled = 'FILLED'
 }
 
 export interface Prescription {

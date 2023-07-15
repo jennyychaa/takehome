@@ -1,13 +1,14 @@
 import express, { Request, Response } from "express";
 import cors from 'cors'
 import { v4 as uuidv4 } from "uuid";
-import { Patient, Prescription, PrescriptionData, PrescriptionStatus } from '@photon-health/models';
+import { Patient, PatientData, Prescription, PrescriptionData, PrescriptionStatus } from '@photon-health/models';
 
 const port = 3000;
 const app = express();
 
 app.use(express.json());
 app.use(cors());
+
 interface Database {
   patients: Record<string, Patient>;
   prescriptions: Record<string, Prescription>;
@@ -72,7 +73,7 @@ app.get("/", (_, res: Response) => {
 });
 
 app.get("/patients", (_, res: Response) => {
-  res.json(Object.values(database.patients));
+  res.json(queryPatientData());
 });
 
 app.get("/patients/:id", (req: Request, res: Response) => {
@@ -140,8 +141,8 @@ app.listen(port, () => {
 
 
 function queryPrescriptionsData() {
-  const prescriptions = Object.values(database.prescriptions);
   const results: Array<PrescriptionData> = [];
+  const prescriptions = Object.values(database.prescriptions);
 
   for (let i = 0; i < prescriptions.length; i++) {
     const patient = database.patients[prescriptions[i].patientId];
@@ -151,6 +152,28 @@ function queryPrescriptionsData() {
         firstName: patient.firstName,
         lastName: patient.lastName,
       }
+    });
+  }
+
+  return results;
+};
+
+function queryPatientData() {
+  const results: Array<PatientData> = [];
+  const medications: Array<string> = [];
+  const patients = Object.values(database.patients);
+  const prescriptions = Object.values(database.prescriptions);
+
+  for (let i = 0; i < patients.length; i++) {
+    prescriptions.filter(prescription => {
+      if (prescription.patientId === patients[i].id) {
+        medications.push(prescription.medications);
+      }
+    });
+
+    results.push({
+      ...patients[i],
+      prescriptions: medications
     });
   }
 
